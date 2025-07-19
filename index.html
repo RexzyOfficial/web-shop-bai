@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --neon-pink: #ff6ec7;
+            --neon-blue: #14f7ff;
+            --neon-purple: #b967ff;
+            --neon-green: #73ff6e;
+        }
+
+        body {
+            background: #0f172a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .nav-glow {
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .product-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(185, 103, 255, 0.3);
+        }
+
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .btn-neon {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--neon-pink);
+            transition: all 0.3s ease;
+        }
+
+        .btn-neon:hover {
+            background: var(--neon-pink);
+            color: #0f172a;
+            box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
+
+        .cart-badge {
+            background: var(--neon-green);
+            color: #0f172a;
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .drawer {
+            transition: all 0.3s ease;
+            right: -400px;
+        }
+
+        .drawer.open {
+            right: 0;
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--neon-blue);
+            border-top: 3px solid transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 bg-black bg-opacity-80 backdrop-blur-md nav-glow">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <h1 class="text-2xl font-bold neon-text-pink">Neon<span class="neon-text-blue">Store</span></h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="nav-item">Home</a>
+                <a href="#" class="nav-item">Products</a>
+                <a href="#" class="nav-item">About</a>
+                <div class="relative">
+                    <button id="cartBtn" class="p-2 rounded-full hover:bg-gray-800 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                    </button>
+                    <span id="cartBadge" class="cart-badge absolute -top-2 -right-2 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-900 to-blue-900 opacity-20"></div>
+        <div class="container mx-auto px-4 py-20 relative">
+            <div class="max-w-2xl">
+                <h1 class="text-5xl font-bold mb-4 neon-text-pink">Welcome to NeonStore</h1>
+                <p class="text-xl mb-8 text-gray-300">Your one-stop shop for the coolest gadgets with futuristic vibes</p>
+                <button class="btn-neon px-6 py-3 rounded-md font-medium">Explore Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold mb-12 neon-text-blue text-center">Featured Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="product-card rounded-lg p-6">
+                <div class="mb-4 h-48 overflow-hidden flex items-center justify-center">
+                    <img src="https://placehold.co/400x300" alt="Wireless headphones with neon blue lights and modern design" class="w-full h-full object-contain" />
+                </div>
+                <h3 class="text-xl font-bold mb-2">NeonWave Headphones</h3>
+                <p class="text-gray-400 mb-4">Experience sound like never before with RGB lighting</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold neon-text-pink">$149.99</span>
+                    <button class="btn-neon px-4 py-2 rounded text-sm add-to-cart" data-id="1">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card rounded-lg p-6">
+                <div class="mb-4 h-48 overflow-hidden flex items-center justify-center">
+                    <img src="https://placehold.co/400x300" alt="Smartwatch with glowing green interface and futuristic look" class="w-full h-full object-contain" />
+                </div>
+                <h3 class="text-xl font-bold mb-2">GlowTrack Smartwatch</h3>
+                <p class="text-gray-400 mb-4">Track your fitness with style and bright display</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold neon-text-blue">$199.99</span>
+                    <button cl
